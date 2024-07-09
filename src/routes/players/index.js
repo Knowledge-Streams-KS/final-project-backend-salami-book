@@ -5,6 +5,7 @@ const playerRouter = Router();
 
 playerRouter.get("/players", playerController.getAll);
 playerRouter.post("/player", playerController.post);
+playerRouter.post('/playertemp', playerController.tempPost)
 playerRouter.delete("/player/:id", playerController.delete);
 
 export default playerRouter;

@@ -7,10 +7,6 @@ const playersModel = sequelize.define('Player',
             type: DataTypes.STRING,
             allowNull: false
         },
-        team: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         goals: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -27,7 +23,6 @@ const playersModel = sequelize.define('Player',
             type: DataTypes.INTEGER,
             allowNull: false
         }
-        
     }
 )
 

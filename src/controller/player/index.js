@@ -28,7 +28,8 @@ const playerController = {
                 goals: payload.goals,
                 assists: payload.assists,
                 position: payload.position,
-                motm: payload.motm
+                motm: payload.motm, 
+                TeamId: payload.teamId
             })
 
             res.status(200).json({message: "Player Created", player})
@@ -37,6 +38,19 @@ const playerController = {
             res.status(500).json({message: "Internal Server Error"})
         }
     }, 
+    tempPost: async (req, res) => {
+        try {
+            const payload = req.body;
+            const b = payload.players
+            console.log(payload)
+            await playersModel.bulkCreate(b)
+
+            res.status(200).json({message: "Bulk Created", b})
+        } catch (error) {
+            console.log("console", error);
+            res.status(500).json({message: "Internal Server Error"})
+        }
+    },
     update: async (req, res) => {
         try {
 
@@ -56,6 +70,7 @@ const playerController = {
             }
 
             await player.destroy()
+            res.status(200).json({message: "Player Deleted"})
         } catch (error) {
             console.log(error);
             res.status(500).json({message: "Internal Server Error"})
