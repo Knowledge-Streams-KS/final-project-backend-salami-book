@@ -37,19 +37,6 @@ const playerController = {
             console.log("console", error);
             res.status(500).json({message: "Internal Server Error"})
         }
-    }, 
-    tempPost: async (req, res) => {
-        try {
-            const payload = req.body;
-            const b = payload.players
-            console.log(payload)
-            await playersModel.bulkCreate(b)
-
-            res.status(200).json({message: "Bulk Created", b})
-        } catch (error) {
-            console.log("console", error);
-            res.status(500).json({message: "Internal Server Error"})
-        }
     },
     update: async (req, res) => {
         try {
