@@ -12,7 +12,7 @@ const bookingModel = sequelize.define('Booking', {
     },
     time: {
         type: DataTypes.TIME,
-        allowNull: false
+        allowNull: false    
     }
 })
 
