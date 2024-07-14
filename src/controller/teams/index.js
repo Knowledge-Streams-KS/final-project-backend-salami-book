@@ -6,6 +6,7 @@ const teamController = {
       const teams = await teamModel.findAll({
         include: 'Players'
       });
+      teams.sort((a, b) => a.division.localeCompare(b.division) || a.name.localeCompare(b.name))
 
       res.status(200).json({ message: "All Teams", teams });
     } catch (error) {
