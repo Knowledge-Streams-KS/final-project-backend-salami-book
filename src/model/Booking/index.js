@@ -17,7 +17,6 @@ const bookingModel = sequelize.define('Booking', {
 
 })
 
-fieldsModel.hasMany(bookingModel, { foreignKey: 'FieldId' });
-bookingModel.belongsTo(fieldsModel, { foreignKey: 'FieldId' });
+
 
 export default bookingModel;

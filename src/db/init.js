@@ -19,12 +19,18 @@ const syncDb = async () => {
     await userModel.sync({ alter: true });
     await tokenModel.sync({ alter: true, force: false });
 
-    await playersModel.sync({ alter: true, force: false });
-    await teamModel.sync({ alter: true, force: false });
-    await matchesModel.sync({ alter: true });
+    // await playersModel.sync({ alter: true, force: false });
+
+    await bookingModel.sync({alter: true, force: false });
     await fieldsModel.sync({ alter: true, force: false });
+    await matchesModel.sync({alter: true });
+    await playersModel.sync({ alter: true, force: false});
+
+    await teamModel.sync({ alter: true, force: false });
+    // await matchesModel.sync({ alter: true });
+    // await fieldsModel.sync({ alter: true, force: false });
     await Ticket.sync({ alter: true });
-    await bookingModel.sync({ alter: true });
+    // await bookingModel.sync({ alter: true });
     await SalesModel.sync({ alter: true });
     await SaleTicket.sync({ alter: true });
 

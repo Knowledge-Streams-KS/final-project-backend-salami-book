@@ -15,4 +15,5 @@ const SaleTicket = sequelize.define("SaleTicket", {
 SalesModel.hasMany(SaleTicket);
 SaleTicket.belongsTo(SalesModel);
 
+
 export default SaleTicket;
