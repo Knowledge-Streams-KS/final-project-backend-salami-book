@@ -1,6 +1,16 @@
 import Ticket from "../../model/Ticket/index.js";
 
 const ticketController = {
+    getAll: async (req, res) => {
+        try {
+            const data = await Ticket.findAll({
+                order: [["createdAt", "DESC"]],
+            });
+            res.status(200).json({ data });
+        } catch (error) {
+            res.status(500).json({ message: "Internal Server Error" });
+        }
+    },
     create: async (req, res) => {
         try {
             const payload = req.body;
