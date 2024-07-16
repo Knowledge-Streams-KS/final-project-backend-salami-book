@@ -12,12 +12,12 @@ import teamModel from "../model/teams/index.js";
 
 
 const syncDb = async () => {
-    await sequelize.sync({ alter: true, force: false });
+    // await sequelize.sync({ alter: true, force: false });
     await userModel.sync({ alter: true });
     await tokenModel.sync({ alter: true, force: false });
-    await fieldsModel.sync({ alter: true, force: false });
-    await matchesModel.sync({alter: true, force: false});
     await bookingModel.sync({alter: true, force: false });
+    await fieldsModel.sync({ alter: true, force: false });
+    await matchesModel.sync({alter: true, force: false });
     await playersModel.sync({ alter: true, force: false});
     await teamModel.sync({ alter: true, force: false });
 

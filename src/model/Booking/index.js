@@ -2,16 +2,12 @@ import sequelize from "../../db/config.js";
 import { DataTypes } from "sequelize";
 
 const bookingModel = sequelize.define('Booking', {
-    fieldName: {
+    date: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false
-    },
     time: {
-        type: DataTypes.TIME,
+        type: DataTypes.STRING,
         allowNull: false    
     }
 })
