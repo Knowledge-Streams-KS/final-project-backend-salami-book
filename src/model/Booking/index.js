@@ -4,6 +4,7 @@ import { DataTypes } from "sequelize";
 
 const bookingModel = sequelize.define('Booking', {
 
+
     date: {
         type: DataTypes.DATEONLY,
         allowNull: false
@@ -11,6 +12,7 @@ const bookingModel = sequelize.define('Booking', {
     time: {
         type: DataTypes.TIME,
         allowNull: false
+
     }
 
 })

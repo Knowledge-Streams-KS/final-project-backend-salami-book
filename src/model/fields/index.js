@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../db/config.js";
+import bookingModel from "../Booking/index.js";
 
 const fieldsModel = sequelize.define('Fields', {
     name: {
@@ -8,10 +9,6 @@ const fieldsModel = sequelize.define('Fields', {
     },
     description: {
         type: DataTypes.STRING(500),
-        allowNull: false
-    },
-    image: {
-        type: DataTypes.STRING,
         allowNull: false
     },
     latitude: {
@@ -29,7 +26,16 @@ const fieldsModel = sequelize.define('Fields', {
             min: -180, 
             max: 180
         }
+    },
+    rate: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
 
+fieldsModel.hasMany(bookingModel)
+bookingModel.belongsTo(fieldsModel)
+
 export default fieldsModel;
+
+
