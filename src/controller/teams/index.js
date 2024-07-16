@@ -18,8 +18,8 @@ const teamController = {
     try {
       const payload = req.body;
       const team = await teamModel.create({
-        name: payload.name,
-        division: payload.division,
+        name: payload.teamName,
+        division: payload.teamDivision,
       });
 
       res.status(200).json({ message: "Team Created", team });

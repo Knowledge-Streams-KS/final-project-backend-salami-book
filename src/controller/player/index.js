@@ -29,13 +29,12 @@ const playerController = {
         try {
             const payload = req.body;
             const player = await playersModel.create({
-                name: payload.name,
-                team: payload.team,
+                name: payload.playerName,
                 goals: payload.goals,
                 assists: payload.assists,
                 position: payload.position,
                 motm: payload.motm, 
-                TeamId: payload.teamId
+                TeamId: payload.teamName
             })
 
             res.status(200).json({message: "Player Created", player})

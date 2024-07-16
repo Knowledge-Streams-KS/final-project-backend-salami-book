@@ -31,11 +31,11 @@ const fieldController = {
         try {
             const payload = req.body;
             const field = await fieldsModel.create({
-                name: payload.name,
-                description: payload.description,
-                image: payload.image,
-                longitude: payload.longitude,
-                latitude: payload.latitude
+                name: payload.fieldName,
+                description: payload.fieldDescription,
+                longitude: payload.fieldLongitude,
+                latitude: payload.fieldLatitude,
+                rate: payload.fieldRate
             })
             res.status(200).json({message: "Field Created", field})
         } catch (error) {
