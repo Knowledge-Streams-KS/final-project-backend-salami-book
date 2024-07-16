@@ -10,19 +10,19 @@ const playerController = {
                 let sumB = b.goals + b.assists + b.motm;
                 return sumB - sumA
             })
-            
-            res.status(200).json({message: "Here are the players", players})
+
+            res.status(200).json({ message: "Here are the players", players })
         } catch (error) {
             console.log(error)
-            res.status(500).json({message: "Internal Server Error"})
+            res.status(500).json({ message: "Internal Server Error" })
         }
     },
     getbyId: async (req, res) => {
         try {
             const { id } = req.params;
-            
+
         } catch (error) {
-            
+
         }
     },
     post: async (req, res) => {
@@ -30,18 +30,17 @@ const playerController = {
             const payload = req.body;
             const player = await playersModel.create({
                 name: payload.name,
-                team: payload.team,
                 goals: payload.goals,
                 assists: payload.assists,
                 position: payload.position,
-                motm: payload.motm, 
+                motm: payload.motm,
                 TeamId: payload.teamId
             })
 
-            res.status(200).json({message: "Player Created", player})
+            res.status(200).json({ message: "Player Created", player })
         } catch (error) {
             console.log("console", error);
-            res.status(500).json({message: "Internal Server Error"})
+            res.status(500).json({ message: "Internal Server Error" })
         }
     },
     update: async (req, res) => {
@@ -50,23 +49,23 @@ const playerController = {
             const payload = req.body;
 
         } catch (error) {
-            
+
         }
     },
     delete: async (req, res) => {
         try {
             const { id } = req.params;
-            const player = await playersModel.findOne({where: {id}})
+            const player = await playersModel.findOne({ where: { id } })
 
-            if(!player){
-                return res.status(400).json({message: "Player Not Found"})
+            if (!player) {
+                return res.status(400).json({ message: "Player Not Found" })
             }
 
             await player.destroy()
-            res.status(200).json({message: "Player Deleted"})
+            res.status(200).json({ message: "Player Deleted" })
         } catch (error) {
             console.log(error);
-            res.status(500).json({message: "Internal Server Error"})
+            res.status(500).json({ message: "Internal Server Error" })
         }
     }
 }
