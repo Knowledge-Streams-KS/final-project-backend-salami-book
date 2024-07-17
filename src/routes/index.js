@@ -5,7 +5,8 @@ import matchesRoutes from "./matches/index.js";
 import playerRouter from "./players/index.js";
 import teamRouter from "./teams/index.js";
 import userRouter from "./user/index.js";
-
+import ticketRouter from "./ticket/index.js";
+import salesRouter from "./sales/index.js";
 const allRoutes = [
   authRouter,
   userRouter,
@@ -13,7 +14,9 @@ const allRoutes = [
   playerRouter,
   teamRouter,
   matchesRoutes,
-  bookingRouter
+  bookingRouter,
+  ticketRouter,
+  salesRouter
 ];
 // const allRoutes = [];
 
