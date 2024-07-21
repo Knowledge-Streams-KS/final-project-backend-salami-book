@@ -17,14 +17,6 @@ const playerController = {
             res.status(500).json({ message: "Internal Server Error" })
         }
     },
-    getbyId: async (req, res) => {
-        try {
-            const { id } = req.params;
-
-        } catch (error) {
-
-        }
-    },
     post: async (req, res) => {
         try {
             const payload = req.body;
@@ -50,15 +42,6 @@ const playerController = {
         } catch (error) {
             console.log("console", error);
             res.status(500).json({ message: "Internal Server Error" })
-        }
-    },
-    update: async (req, res) => {
-        try {
-
-            const payload = req.body;
-
-        } catch (error) {
-
         }
     },
     delete: async (req, res) => {

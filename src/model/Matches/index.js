@@ -3,6 +3,7 @@ import { DataTypes } from "sequelize";
 import bookingModel from "../Booking/index.js"
 import fieldsModel from "../fields/index.js";
 // import Ticket from "../Ticket/index.js";
+import MatchTicket from "../Ticket/MatchTicket.js";
 import SaleTicket from "../SaleTicket/index.js";
 
 const matchesModel = sequelize.define('Matches', {
@@ -35,6 +36,9 @@ matchesModel.belongsTo(fieldsModel); // Each Match belongs to one Field
 
 // Ticket.belongsTo(matchesModel);
 // matchesModel.hasMany(Ticket);
+
+matchesModel.hasMany(MatchTicket);
+MatchTicket.belongsTo(matchesModel);
 
 matchesModel.hasMany(SaleTicket);
 SaleTicket.belongsTo(matchesModel);

@@ -2,6 +2,8 @@ import SalesModel from "../../model/Sales/index.js";
 import SaleTicket from "../../model/SaleTicket/index.js";
 import Ticket from "../../model/Ticket/index.js";
 import sequelize from "../../db/config.js";
+import MatchTicket from "../../model/Ticket/MatchTicket.js";
+import matchesModel from "../../model/Matches/index.js";
 
 
 const salesController = {
@@ -76,28 +78,53 @@ const salesController = {
 
         // Loop through each sales ticket in the payload
         for (const saleTicket of payload.salesTickets) {
-          const ticket = await Ticket.findByPk(saleTicket.TicketId, { transaction });
+          const { TicketId, quantity } = saleTicket;
+          const MatchId = payload.MatchId; // Ensure MatchId is taken from payload
+
+          const ticket = await Ticket.findByPk(TicketId, { transaction });
 
           if (!ticket) {
-            throw new Error(`Ticket with id ${saleTicket.TicketId} not found`);
+            throw new Error(`Ticket with id ${TicketId} not found`);
           }
 
-          if (isNaN(saleTicket.quantity) || saleTicket.quantity <= 0) {
+          if (isNaN(quantity) || quantity <= 0) {
             throw new Error(`Invalid quantity for ticket ${ticket.name}`);
           }
 
-          if (saleTicket.quantity > ticket.stock) {
-            throw new Error(`Insufficient stock for ticket ${ticket.name}`);
+          // Fetch the match
+          const match = await matchesModel.findByPk(MatchId, { transaction });
+          if (!match) {
+            throw new Error(`Match with id ${MatchId} not found`);
           }
-          console.log("Chevck PAyload", payload);
+
+          // Fetch the match-specific ticket stock
+          const matchTicket = await MatchTicket.findOne({
+            where: {
+              TicketId: ticket.id,
+              MatchId: match.id,
+            },
+            transaction,
+          });
+
+          if (!matchTicket) {
+            throw new Error(`Stock for ticket ${ticket.name} and match ${match.id} not found`);
+          }
+
+          if (quantity > matchTicket.stock) {
+            throw new Error(`Insufficient stock for ticket ${ticket.name} for match ${match.id}`);
+          }
+
           // Add SaleId, TicketId, and MatchId to the salesTicket
-          const matchId = saleTicket.MatchId || payload.MatchId;
           salesTickets.push({
             ...saleTicket,
             price: ticket.price,
             SaleId: sale.id,
-            MatchId: matchId, 
+            MatchId, 
           });
+
+          // Deduct ticket quantities from stock for the specific match
+          matchTicket.stock -= quantity;
+          await matchTicket.save({ transaction });
         }
 
         // Bulk create all sale tickets for the current sale
@@ -105,19 +132,12 @@ const salesController = {
 
         // Calculate total amount for the sale
         const totalAmount = salesTickets.reduce((sum, current) => {
-          return sum + (current.price * current.quantity); // Corrected to use current.quantity
+          return sum + (current.price * current.quantity);
         }, 0);
 
         // Update the totalAmount in the sale entry
         sale.totalAmount = totalAmount;
         await sale.save({ transaction });
-
-        // Deduct ticket quantities from stock
-        for (const saleTicket of salesTickets) {
-          const ticket = await Ticket.findByPk(saleTicket.TicketId, { transaction });
-          ticket.stock -= saleTicket.quantity; // Corrected to use saleTicket.quantity
-          await ticket.save({ transaction });
-        }
 
         // Set transaction status to completed
         transactionStatus = "completed";
@@ -130,5 +150,8 @@ const salesController = {
       res.status(500).json({ message: error.message || "Internal server error", transactionStatus });
     }
   }
+
+
+
 }
 export default salesController;
