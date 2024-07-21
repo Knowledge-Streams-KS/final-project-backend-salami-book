@@ -17,6 +17,21 @@ const matchesController = {
             res.status(500).json(error)
         }
     },
+
+    getMatch: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const matches = await matchesModel.findOne({
+                where: {
+                    id
+                }
+            });
+            res.status(200).json({ matches })
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
+        }
+    },
     // post: async (req, res) => {
     //     try {
     //         const payload = req.body;

@@ -74,11 +74,11 @@ const ticketController = {
         try {
             const data = await MatchTicket.findAll({
                 order: [["createdAt", "DESC"]],
-                attributes: ['stock', 'MatchId'],
+                // attributes: ['stock', 'MatchId'],
                 include: [
                     {
                         model: Ticket,
-                        attributes: ['name', 'price'], // Optional: Include specific booking attributes
+                        // attributes: ['name', 'price'], // Optional: Include specific booking attributes
                     }
                 ]
 
@@ -98,7 +98,7 @@ const ticketController = {
                 where: {
                     MatchId: MatchId
                 },
-                attributes: ['stock'],
+                // attributes: ['stock'],
                 include: [{
                     model: Ticket,
                     attributes: ['name', 'price'] // Include Ticket attributes
