@@ -23,18 +23,18 @@ const fieldsModel = sequelize.define('Fields', {
         type: DataTypes.DOUBLE,
         allowNull: false,
         validate: {
-            min: -180, 
+            min: -180,
             max: 180
         }
     },
     rate: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 })
 
-fieldsModel.hasMany(bookingModel)
-bookingModel.belongsTo(fieldsModel)
+// fieldsModel.hasMany(bookingModel)
+// bookingModel.belongsTo(fieldsModel)
 
 export default fieldsModel;
 
