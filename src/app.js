@@ -5,6 +5,7 @@ import syncDb from "./db/init.js";
 import allRoutes from "./routes/index.js";
 import cors from "cors";
 
+
 const app = express();
 
 // Allow only specific origins or handle undefined origin gracefully
